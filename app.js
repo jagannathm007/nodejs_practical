@@ -10,7 +10,7 @@ let userModel = require('./models/users');
 app.post('/signin', async (req, res) => {
     try {
         const { emailId, password } = req.body;
-        let isUserExist = await userModel.find({ emailId: emailId, password: password }).select('-createdAt -updatedAt -__v').lean();
+        let isUserExist = await userModel.find({ emailId: emailId, password: password }).select('-createdAt -updatedAt').lean();
         if (isUserExist.length > 0) {
             delete isUserExist[0].password;
             res.json({ isSuccess: true, message: "LoggedIn Successfully", data: isUserExist[0] });
